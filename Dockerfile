@@ -17,4 +17,4 @@ RUN a2enmod rewrite
 ADD 000-default.conf /etc/apache2/sites-available/
 ADD conn.php /var/www/html/
 ADD public /var/www/html/public/
-RUN mv /var/www/html/public/_htaccess /var/www/html/public/.htaccess
+#RUN mv /var/www/html/public/_htaccess /var/www/html/public/.htaccess
