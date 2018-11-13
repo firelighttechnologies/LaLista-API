@@ -4,7 +4,7 @@
  * @version 0.5
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 $app = new Slim\App();
 
@@ -15,7 +15,7 @@ $app = new Slim\App();
  * Notes: This lists all Lists out.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/lists', function($request, $response, $args) {
+$app->GET('/0.5/lists', function($request, $response, $args) {
 
 
             require_once 'token.php';
@@ -31,7 +31,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/lists', function($request, $respon
  * Notes: Delete a list.
 
  */
-$app->DELETE('/FirelightTechnologie/lalista1/0.5/lists/{id}', function($request, $response, $args) {
+$app->DELETE('/0.5/lists/{id}', function($request, $response, $args) {
 
 
 
@@ -47,7 +47,7 @@ $app->DELETE('/FirelightTechnologie/lalista1/0.5/lists/{id}', function($request,
  * Notes: Get details of list.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/lists/{id}', function($request, $response, $args) {
+$app->GET('/0.5/lists/{id}', function($request, $response, $args) {
 
 
 
@@ -63,7 +63,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/lists/{id}', function($request, $r
  * Notes: Update details of list.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/lists/{id}', function($request, $response, $args) {
+$app->POST('/0.5/lists/{id}', function($request, $response, $args) {
 
 
 
@@ -79,7 +79,7 @@ $app->POST('/FirelightTechnologie/lalista1/0.5/lists/{id}', function($request, $
  * Notes: Remove user and their access rights from the list.
 
  */
-$app->DELETE('/FirelightTechnologie/lalista1/0.5/lists/{id}/users', function($request, $response, $args) {
+$app->DELETE('/0.5/lists/{id}/users', function($request, $response, $args) {
 
 
 
@@ -95,7 +95,7 @@ $app->DELETE('/FirelightTechnologie/lalista1/0.5/lists/{id}/users', function($re
  * Notes: Get details of list.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/lists/{id}/users', function($request, $response, $args) {
+$app->GET('/0.5/lists/{id}/users', function($request, $response, $args) {
 
 
 
@@ -111,7 +111,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/lists/{id}/users', function($reque
  * Notes: Update details of list.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/lists/{id}/users', function($request, $response, $args) {
+$app->POST('/0.5/lists/{id}/users', function($request, $response, $args) {
 
 
 
@@ -127,7 +127,7 @@ $app->POST('/FirelightTechnologie/lalista1/0.5/lists/{id}/users', function($requ
  * Notes: This adds a new list to the system.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/lists', function($request, $response, $args) {
+$app->POST('/0.5/lists', function($request, $response, $args) {
 
 
 
@@ -143,7 +143,7 @@ $app->POST('/FirelightTechnologie/lalista1/0.5/lists', function($request, $respo
  * Notes: This operation shows how to override the global security defined above, as we want to open it up for all users.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/ping', function($request, $response, $args) {
+$app->GET('/0.5/ping', function($request, $response, $args) {
 
 
 
@@ -159,7 +159,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/ping', function($request, $respons
  * Notes: This lists all tasks out.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/tasks', function($request, $response, $args) {
+$app->GET('/0.5/tasks', function($request, $response, $args) {
 
 
 
@@ -175,7 +175,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/tasks', function($request, $respon
  * Notes: Delete a task.
 
  */
-$app->DELETE('/FirelightTechnologie/lalista1/0.5/tasks/{id}', function($request, $response, $args) {
+$app->DELETE('/0.5/tasks/{id}', function($request, $response, $args) {
 
 
 
@@ -191,7 +191,7 @@ $app->DELETE('/FirelightTechnologie/lalista1/0.5/tasks/{id}', function($request,
  * Notes: Get details of task.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/tasks/{id}', function($request, $response, $args) {
+$app->GET('/0.5/tasks/{id}', function($request, $response, $args) {
 
 
 
@@ -207,7 +207,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/tasks/{id}', function($request, $r
  * Notes: Update details of task.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/tasks/{id}', function($request, $response, $args) {
+$app->POST('/0.5/tasks/{id}', function($request, $response, $args) {
 
 
 
@@ -223,7 +223,7 @@ $app->POST('/FirelightTechnologie/lalista1/0.5/tasks/{id}', function($request, $
  * Notes: This adds a new task to the system.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/tasks', function($request, $response, $args) {
+$app->POST('/0.5/tasks', function($request, $response, $args) {
 
 
 
@@ -239,7 +239,7 @@ $app->POST('/FirelightTechnologie/lalista1/0.5/tasks', function($request, $respo
  * Notes: This lists all users out.
 
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/users', function($request, $response, $args) {
+$app->GET('/0.5/users', function($request, $response, $args) {
 
 
 
@@ -255,7 +255,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/users', function($request, $respon
  * Notes: Delete a user.
 
  */
-$app->DELETE('/FirelightTechnologie/lalista1/0.5/users/{id}', function($request, $response, $args) {
+$app->DELETE('/0.5/users/{id}', function($request, $response, $args) {
 
 
 
@@ -271,7 +271,7 @@ $app->DELETE('/FirelightTechnologie/lalista1/0.5/users/{id}', function($request,
  * Notes: Get details of user.
  * Output-Formats: [application/json]
  */
-$app->GET('/FirelightTechnologie/lalista1/0.5/users/{id}', function($request, $response, $args) {
+$app->GET('/0.5/users/{id}', function($request, $response, $args) {
 
 
 
@@ -287,7 +287,7 @@ $app->GET('/FirelightTechnologie/lalista1/0.5/users/{id}', function($request, $r
  * Notes: Update details of user.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/users/{id}', function($request, $response, $args) {
+$app->POST('/0.5/users/{id}', function($request, $response, $args) {
 
 
 
@@ -303,7 +303,7 @@ $app->POST('/FirelightTechnologie/lalista1/0.5/users/{id}', function($request, $
  * Notes: This adds a new user to the system.
 
  */
-$app->POST('/FirelightTechnologie/lalista1/0.5/users', function($request, $response, $args) {
+$app->POST('/0.5/users', function($request, $response, $args) {
 
 
 

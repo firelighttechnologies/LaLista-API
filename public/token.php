@@ -6,6 +6,10 @@ use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 
+$myfile = fopen("/run/secrets/api.lalista.auth.key", "r") or die("Unable to open file!");
+$GLOBALS['testsecretkey'] = trim(fgets($myfile));
+fclose($myfile);
+
 
 function return_true_if_token_good(){
 	$oauthToken = getBearerToken();
@@ -38,7 +42,8 @@ function return_userid_if_token_good(){
 	//strval(Configure::read('Security.cipherSeed'))
 	if (!$token->verify(new Sha256(), $globals['testsecretkey'])) {
 	    //echo "Bad Signature! <br />";
-			return "false"; // false, Signature not valid
+			die(http_response_code(401));
+			//return "false"; // false, Signature not valid
 	}else{
 		//echo "Valid Signature! <br />";
 		$data = new ValidationData(); // It will use the current time to validate (iat, nbf and exp)
@@ -47,7 +52,8 @@ function return_userid_if_token_good(){
     if ($token->validate($data)){
       return($token->uid); // true, if token has a good signature and is vaild`
     }
-		return "false"; // false, token not valid
+		die(http_response_code(401));
+		//return "false"; // false, token not valid
 	}
 }
 
@@ -83,7 +89,8 @@ function getBearerToken() {
             return $matches[1];
         }
     }
-    return null;
+		die(http_response_code(401));
+    //return null;
 }
 
 function get_all_tasks_of_user(){
