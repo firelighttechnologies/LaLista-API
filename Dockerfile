@@ -18,3 +18,5 @@ ADD 000-default.conf /etc/apache2/sites-available/
 ADD conn.php /var/www/html/
 ADD public /var/www/html/public/
 #RUN mv /var/www/html/public/_htaccess /var/www/html/public/.htaccess
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ping || exit 1

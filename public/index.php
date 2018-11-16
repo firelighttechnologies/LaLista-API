@@ -16,11 +16,10 @@ $app = new Slim\App();
 
  */
 $app->GET('/0.5/lists', function($request, $response, $args) {
-
-
             require_once 'token.php';
 
-            $response->write(return_userid_if_token_good() . ' How about implementing listsGet as a GET method ?');
+            $response->write(get_all_lists_of_user(return_userid_if_token_good()));
+//            $response->write(return_userid_if_token_good() . ' How about implementing listsGet as a GET method ?');
             return $response;
             });
 
@@ -144,14 +143,20 @@ $app->POST('/0.5/lists', function($request, $response, $args) {
 
  */
 $app->GET('/0.5/ping', function($request, $response, $args) {
-
-
-
-
-            $response->write('How about implementing pingGet as a GET method ?');
+            $response->write('pong');
             return $response;
             });
 
+/**
+ * GET pingGet
+ * Summary: Server heartbeat operation
+ * Notes: This operation shows how to override the global security defined above, as we want to open it up for all users.
+
+ */
+$app->GET('/ping', function($request, $response, $args) {
+            $response->write('pong');
+            return $response;
+            });
 
 /**
  * GET tasksGet
@@ -160,11 +165,8 @@ $app->GET('/0.5/ping', function($request, $response, $args) {
 
  */
 $app->GET('/0.5/tasks', function($request, $response, $args) {
-
-
-
-
-            $response->write('How about implementing tasksGet as a GET method ?');
+          require_once 'token.php';
+            $response->write(get_all_tasks_of_user(return_userid_if_token_good()));
             return $response;
             });
 
