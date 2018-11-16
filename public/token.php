@@ -19,7 +19,7 @@ function return_true_if_token_good(){
 	WARN: before validating the content you would probably like to verify the token signature:
 	*/
 	//strval(Configure::read('Security.cipherSeed'))
-	if (!$token->verify(new Sha256(), $globals['testsecretkey'])) {
+	if (!$token->verify(new Sha256(), $GLOBALS['testsecretkey'])) {
 	    //echo "Bad Signature! <br />";
 			return "false";
 	}else{
@@ -40,7 +40,7 @@ function return_userid_if_token_good(){
 	WARN: before validating the content you would probably like to verify the token signature:
 	*/
 	//strval(Configure::read('Security.cipherSeed'))
-	if (!$token->verify(new Sha256(), $globals['testsecretkey'])) {
+	if (!$token->verify(new Sha256(), $GLOBALS['testsecretkey'])) {
 	    //echo "Bad Signature! <br />";
 			die(http_response_code(401));
 			//return "false"; // false, Signature not valid
@@ -94,21 +94,21 @@ function getBearerToken() {
     //return null;
 }
 
-function get_all_lists_of_user($uid){
-	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+function return_all_lists_of_user($uid){
+	//mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	include '../conn.php';
 
 		$sql = "SELECT * FROM `lalista`.`list` JOIN `user_list` ON `user_list`.`list_id` = `list`.`list_id` WHERE `user_id` ='" . $uid . "'";
-//		$sql = "SELECT * FROM `lalista`.`list` JOIN `user_list` ON `user_list`.`list_id` = `list`.`list_id` WHERE `user_id` = " . $user;
-	//	$sql = "CALL `task_new`('due, task, category, userid, perm')";
-	//	$sql = "CALL `task_new`('" . date ("Y-m-d H:i:s", $_REQUEST['new_date']) . "', '". $_REQUEST['new_task'] . "', '". $_REQUEST['new_category'] . "', '". $_REQUEST['new_user'] . "', " . 7 . ")";
+		//		$sql = "SELECT * FROM `lalista`.`list` JOIN `user_list` ON `user_list`.`list_id` = `list`.`list_id` WHERE `user_id` = " . $user;
+		//	$sql = "CALL `task_new`('due, task, category, userid, perm')";
+		//	$sql = "CALL `task_new`('" . date ("Y-m-d H:i:s", $_REQUEST['new_date']) . "', '". $_REQUEST['new_task'] . "', '". $_REQUEST['new_category'] . "', '". $_REQUEST['new_user'] . "', " . 7 . ")";
 
 
 		try {
 			$result = mysqli_query($conn, $sql);
 		}
 		catch(exception $e) {
-//			echo "ex: ".$e;
+			//			echo "ex: ".$e;
 			return "Database Error!";
 		}
 
@@ -133,8 +133,8 @@ function get_all_lists_of_user($uid){
 	mysqli_close($conn);
 }
 
-function get_all_tasks_of_user($uid){
-	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+function return_all_tasks_of_user($uid){
+	//mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	include '../conn.php';
 
 	//	$sql = "SELECT * FROM tasks";
@@ -158,6 +158,7 @@ function get_all_tasks_of_user($uid){
 			while($row = mysqli_fetch_assoc($result)) {
 				$task = new stdClass();
 				$task->task_id = $row["task_id"];
+				$task->list_id = $row["list_id"];
 				$task->created = $row["created"];
 				$task->category = $row["category"];
 				$task->details = $row["task"];
@@ -166,6 +167,37 @@ function get_all_tasks_of_user($uid){
 				array_push($list, $task);
 			}
 			print_r(json_encode($list));
+		} else {
+			echo "0 results";
+		}
+	mysqli_close($conn);
+}
+
+function return_all_users_of_list($lid){
+	include '../conn.php';
+	$sql = "SELECT `users`.`id` AS userid,`users`.`email`,`users`.`fname`,`users`.`lname`,`user_list`.`permissions`
+	 FROM `users` JOIN `user_list` ON `user_list`.`user_id` = `users`.`id` WHERE `user_list`.`list_id` ='" . $lid . "'";
+
+		try {
+			$result = mysqli_query($conn, $sql);
+		}
+		catch(exception $e) {
+			echo "ex: ".$e;
+		}
+
+		if(mysqli_num_rows($result) > 0) {
+			$user_array = array();
+			// output data of each row
+			while($row = mysqli_fetch_assoc($result)) {
+				$user = new stdClass();
+				$user->user_id = $row["user_id"];
+				$user->email = $row["email"];
+				$user->fname = $row["fname"];
+				$user->lname = $row["lname"];
+				$user->permissions = $row["permissions"];
+				array_push($user_array, $user);
+			}
+			print_r(json_encode($user_array));
 		} else {
 			echo "0 results";
 		}

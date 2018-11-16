@@ -18,7 +18,7 @@ $app = new Slim\App();
 $app->GET('/0.5/lists', function($request, $response, $args) {
             require_once 'token.php';
 
-            $response->write(get_all_lists_of_user(return_userid_if_token_good()));
+            $response->write(return_all_lists_of_user(return_userid_if_token_good()));
 //            $response->write(return_userid_if_token_good() . ' How about implementing listsGet as a GET method ?');
             return $response;
             });
@@ -31,10 +31,6 @@ $app->GET('/0.5/lists', function($request, $response, $args) {
 
  */
 $app->DELETE('/0.5/lists/{id}', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing listsIdDelete as a DELETE method ?');
             return $response;
             });
@@ -47,10 +43,6 @@ $app->DELETE('/0.5/lists/{id}', function($request, $response, $args) {
 
  */
 $app->GET('/0.5/lists/{id}', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing listsIdGet as a GET method ?');
             return $response;
             });
@@ -63,10 +55,6 @@ $app->GET('/0.5/lists/{id}', function($request, $response, $args) {
 
  */
 $app->POST('/0.5/lists/{id}', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing listsIdPost as a POST method ?');
             return $response;
             });
@@ -79,10 +67,6 @@ $app->POST('/0.5/lists/{id}', function($request, $response, $args) {
 
  */
 $app->DELETE('/0.5/lists/{id}/users', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing listsIdUsersDelete as a DELETE method ?');
             return $response;
             });
@@ -95,11 +79,8 @@ $app->DELETE('/0.5/lists/{id}/users', function($request, $response, $args) {
 
  */
 $app->GET('/0.5/lists/{id}/users', function($request, $response, $args) {
-
-
-
-
-            $response->write('How about implementing listsIdUsersGet as a GET method ?');
+            require_once 'token.php';
+            $response->write(return_all_users_of_list($args['id']));
             return $response;
             });
 
@@ -166,7 +147,7 @@ $app->GET('/ping', function($request, $response, $args) {
  */
 $app->GET('/0.5/tasks', function($request, $response, $args) {
           require_once 'token.php';
-            $response->write(get_all_tasks_of_user(return_userid_if_token_good()));
+            $response->write(return_all_tasks_of_user(return_userid_if_token_good()));
             return $response;
             });
 
