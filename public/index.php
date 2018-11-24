@@ -108,11 +108,9 @@ $app->POST('/0.5/lists/{id}/users', function($request, $response, $args) {
 
  */
 $app->POST('/0.5/lists', function($request, $response, $args) {
-
-
-
-
-            $response->write('How about implementing listsPost as a POST method ?');
+            require_once 'token.php';
+            $parsedBody = $request->getParsedBody();
+            $response->write(return_json_add_new_list(return_userid_if_token_good(), $parsedBody['name']));
             return $response;
             });
 
@@ -159,10 +157,6 @@ $app->GET('/0.5/tasks', function($request, $response, $args) {
 
  */
 $app->DELETE('/0.5/tasks/{id}', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing tasksIdDelete as a DELETE method ?');
             return $response;
             });
@@ -175,10 +169,6 @@ $app->DELETE('/0.5/tasks/{id}', function($request, $response, $args) {
 
  */
 $app->GET('/0.5/tasks/{id}', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing tasksIdGet as a GET method ?');
             return $response;
             });
@@ -191,10 +181,6 @@ $app->GET('/0.5/tasks/{id}', function($request, $response, $args) {
 
  */
 $app->POST('/0.5/tasks/{id}', function($request, $response, $args) {
-
-
-
-
             $response->write('How about implementing tasksIdPost as a POST method ?');
             return $response;
             });
@@ -207,11 +193,11 @@ $app->POST('/0.5/tasks/{id}', function($request, $response, $args) {
 
  */
 $app->POST('/0.5/tasks', function($request, $response, $args) {
+            require_once 'token.php';
+            $parsedBody = $request->getParsedBody();
+            $response->write(return_json_add_new_task(return_userid_if_token_good(), $parsedBody['category'], $parsedBody['task'], $parsedBody['due'], $parsedBody['status'], $parsedBody['list_id']));
 
-
-
-
-            $response->write('How about implementing tasksPost as a POST method ?');
+            //$response->write('How about implementing tasksPost as a POST method ?');
             return $response;
             });
 

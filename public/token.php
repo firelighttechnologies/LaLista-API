@@ -203,3 +203,57 @@ function return_all_users_of_list($lid){
 		}
 	mysqli_close($conn);
 }
+
+function return_json_add_new_list($uid, $listname){
+	include '../conn.php';
+	$sql = "INSERT INTO `list` (`list_name`, `list_status`) VALUES ('" . $listname . "', 1)";
+	if (mysqli_query($conn, $sql)) {
+    $last_id = mysqli_insert_id($conn);
+		$sql = "INSERT INTO `user_list` (`user_id`, `list_id`, `permissions`, `status`) VALUES ('" . $uid . "', '" . $last_id . "', 1,1)";
+		if (mysqli_query($conn, $sql)) {
+	    echo "New List created successfully";
+		} else {
+	    echo "Error: Adding List";
+		}
+	} else {
+    echo "Error: Adding List";
+	}
+}
+
+function return_json_add_new_task($uid, $category,$task,$due,$status,$list_id){
+	include '../conn.php';
+	if (return_access_of_user_for_list($uid, $list_id) > 0){
+		$sql = "INSERT INTO `tasks` SET (`category`,`task`,`due`,`status`,`list_id`) VALUES ('" . $category . "','" . $task . "','" . $due . "','" . $status . "','" . $list_id . "')";
+		if (mysqli_query($conn, $sql)) {
+	    //$last_id = mysqli_insert_id($conn);
+			echo "successful";
+		} else {
+			//echo $sql;
+	    echo "Error: Adding tasks";
+		}
+	}
+}
+
+function return_access_of_user_for_list($uid, $list_id){
+	include '../conn.php';
+	$sql = "SELECT `permissions` FROM `user_list` WHERE `user_id` = '" . $uid . "' AND `list_id` = '" . $list_id . "' AND `status` = '1'";
+	$result = mysqli_query($conn, $sql);
+	if (!$result) {
+	    //echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+	    //exit;
+			return -1;
+	}
+	if (mysqli_num_rows($result) == 0) {
+	    //echo "No rows found, nothing to print so am exiting";
+	    //exit;
+			return 0;
+	}
+	// While a row of data exists, put that row in $row as an associative array
+	// Note: If you're expecting just one row, no need to use a loop
+	// Note: If you put extract($row); inside the following loop, you'll
+	//       then create $userid, $fullname, and $userstatus
+	while ($row = mysqli_fetch_assoc($result)) {
+	    return $row["permissions"];
+	}
+	mysqli_free_result($result);
+}
