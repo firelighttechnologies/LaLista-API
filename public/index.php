@@ -54,8 +54,10 @@ $app->GET('/0.5/lists/{id}', function($request, $response, $args) {
  * Notes: Update details of list.
 
  */
-$app->POST('/0.5/lists/{id}', function($request, $response, $args) {
-            $response->write('How about implementing listsIdPost as a POST method ?');
+$app->POST('/0.5/lists/{list_id}', function($request, $response, $args) {
+            require_once 'token.php';
+            $parsedBody = $request->getParsedBody();
+            $response->write(return_json_update_list(return_userid_if_token_good(), $parsedBody['list_name'], $parsedBody['status'], $args['list_id']));
             return $response;
             });
 
@@ -180,8 +182,10 @@ $app->GET('/0.5/tasks/{id}', function($request, $response, $args) {
  * Notes: Update details of task.
 
  */
-$app->POST('/0.5/tasks/{id}', function($request, $response, $args) {
-            $response->write('How about implementing tasksIdPost as a POST method ?');
+$app->POST('/0.5/tasks/{task_id}', function($request, $response, $args) {
+            require_once 'token.php';
+            $parsedBody = $request->getParsedBody();
+            $response->write(return_json_update_task(return_userid_if_token_good(), $parsedBody['category'], $parsedBody['task'], $parsedBody['due'], $parsedBody['status'], $args['task_id']));
             return $response;
             });
 
